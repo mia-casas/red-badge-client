@@ -3,6 +3,7 @@ import ReactDom from 'react-dom';
 import {CarouselProps} from './Interfaces'
 import {Carousel, CarouselItem} from 'reactstrap';
 import {Breadcrumbs, Menu, MenuItem, Slide, Collapse, ListItem, Link, Grid, Paper, GridList, GridListTile, BreadcrumbsTypeMap} from '@material-ui/core';
+import Register from './Auth/Register'
 
 // import { AutoRotatingCarousel } from 'material-auto-rotating-carousel';
 // import {Route, MemoryRouter} from 'react-router'
@@ -22,6 +23,8 @@ const Home: React.FC<{}> = () => {
                 <Link>Admin Users</Link>
             </Breadcrumbs>
 
+        
+            <Register />
             {/* Carousel */}
             
 

@@ -1,15 +1,49 @@
 import React from 'react';
 import {Card, Modal, Button, Input, InputLabel} from '@material-ui/core';
 import {InputProps} from '@material-ui/core/Input/Input'
+import {IPost} from './Interfaces'
+import { BaseSyntheticEvent } from 'react';
 
 
-class AdminHome extends React.Component<InputProps>{
+export type MoreProps = {
+    children: boolean
+}
 
+class AdminHome extends React.Component<InputProps, IPost>{
+    constructor(props:any){
+        super(props)
+        this.state= {
+            date: '',
+            time: '',
+            location: '',
+            title: '',
+            content: '',
+            category: '',
+            imageURL: '',
+            owner: ''
+        }
+    }
+
+
+    createPost = (e: BaseSyntheticEvent) => {
+        e.preventDefault()
+        fetch(`http://localhost:5005/post/create`, {
+            method: 'POST',
+            // body: JSON.stringify,
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUyMDA5YTRhLTJkM2MtNDZiNC1iNzE5LWU5ZjVmZmQyYzIxNCIsImlhdCI6MTYyMTM2MDc4OCwiZXhwIjoxNjIxNDQ3MTg4fQ.5KHyHSnS52aQTkeJuUE4fIabkZJ9JlgYRXfo3f_RBUc'
+            })
+        }).then((res) => res.json())
+        .then((postInfo) =>{
+            
+        })
+    }
     render(){
         return(
             <div>
                 
-                    <h2>Fill in the appropriate information:</h2>
+                    <h2>Fill in with the appropriate information:</h2>
                     <div>
                         <InputLabel>Date:</InputLabel>
                         <Input type="date" required={true} name="Date"></Input>  {/*Would like a Date Picker */}
