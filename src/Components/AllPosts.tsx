@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import { BaseSyntheticEvent } from 'react';
-import {IPost} from './Interfaces'
+import {IResponse, IPost} from './Interfaces'
 
-class Posts extends Component<{}, IPost> {
+class Posts extends Component<{}, IResponse &IPost> {
     constructor(props:any){
         super(props)
-        this.state = {
+        this.state = { 
+            posts: [],
             date: '',
             time: '',
             location: '',
@@ -17,29 +18,30 @@ class Posts extends Component<{}, IPost> {
         }
     }
 
-    fetchPosts = (e:BaseSyntheticEvent) => {
-        e.preventDefault()
-    
+    fetchPosts = () => {    
         fetch(`http://localhost:5005/post/all`, {
-            method: 'GET'
-        }) .then((res) => res.json())
+            method: 'GET',
+            headers: new Headers ({
+                'Content-Type': 'application/json'
+            })
+        }) .then((response) => response.json())
         .then((data) => console.log(data))
-        .catch(Error => console.log(Error))
+        // .catch(Error => console.log(Error))
 
-
-        return(
-            <div>
-                {this.fetchPosts}
-            </div>
-        )
     }
+
+    componentDidMount(){
+        this.fetchPosts()
+    }
+    render(){return(
+        <div>
+
+        </div>
+    )
+  }
 }
 
-// render(){
-//     return(
 
-//     )
-// }
    
 
 

@@ -1,9 +1,8 @@
 import React from 'react';
 import {FormControl, Container, Button, TextField, PropTypes } from '@material-ui/core';
 import {Form} from 'reactstrap'
-import {IUser} from '../Interfaces';
+import {IUser, IUserProps} from '../Interfaces';
 import { BaseSyntheticEvent } from 'react';
-import {IUserProps} from '../Interfaces'
 
 class Register extends React.Component<{}, IUser & IUserProps>{
     constructor(props: any){
@@ -37,9 +36,7 @@ class Register extends React.Component<{}, IUser & IUserProps>{
     componentDidUpdate(){
         setTimeout(() => {localStorage.setItem('token', `${this.state.token}`)}, 500)
     }
-    // localStorage = (newToken) => {
-    //     localStorage.setItem('token', newToken)
-    // }
+
     componentDidMount = () => {
         this.setState({
             firstName: '',

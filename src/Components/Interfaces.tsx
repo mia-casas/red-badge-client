@@ -1,5 +1,9 @@
 // Home Page:
 
+export interface IResponse{
+    posts: []
+}
+
 
 export interface CarouselProps {
     
@@ -14,10 +18,16 @@ export interface IUser{
     password: string,
     admin: boolean,
 }
+
 export interface IUserProps{
     token: string | null,
-
 }
+
+export interface ILogin{
+    email: string,
+    password: string,
+}
+
 
 // Admin
 export interface IPost{
