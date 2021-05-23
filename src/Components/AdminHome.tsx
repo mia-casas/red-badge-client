@@ -105,7 +105,7 @@ class AdminHome extends React.Component<InputProps, IPost>{
                     </div>
                     <div>
                         <InputLabel>Select Image:</InputLabel>
-                        {/* <Input type="image" name="Event Photo" placeholder="Select image to upload"></Input> */}
+                        <Input type="text" name="Event Photo" placeholder="Image URL" onChange={(e)=>{this.setState({imageURL: e.target.value})}}></Input>
                     </div>
                 
                         <Button type="submit">Create Post</Button>
