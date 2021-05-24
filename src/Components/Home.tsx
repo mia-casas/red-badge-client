@@ -8,6 +8,7 @@ import Register from './Auth/Register'
 import Login from './Auth/Login'
 import Posts from './AllPosts'
 import AdminHome from './AdminHome'
+import Comment from './Comments'
 
 // import { AutoRotatingCarousel } from 'material-auto-rotating-carousel';
 // import {Route, MemoryRouter} from 'react-router'
@@ -35,6 +36,12 @@ class Home extends Component<{}, IMenuState & IUserProps>{
         })
     }
 
+    newToken = (token:string) => {
+        localStorage.setItem('item', token);
+        this.setState({token: token})
+    }
+
+
     clearToken=() => {
         localStorage.clear();
         // localStorage.removeItem('token')
@@ -43,10 +50,9 @@ class Home extends Component<{}, IMenuState & IUserProps>{
     } //not working??
 
     render() {return(
-        <Router>
+        
         <div>
             {/* Top  Navigation */}
-
             <Breadcrumbs> 
             <Button
             aria-controls="simple-menu"
@@ -65,60 +71,18 @@ class Home extends Component<{}, IMenuState & IUserProps>{
                 {/* <Link>My Events</Link> */}
                 <Link to='/AdminHome'>Admin Users</Link>
             </Breadcrumbs>
-            
-                {/* <Route path="/Login">
-                    
-                </Route>
-                
-                <Route path="/AdminHome">
-                    <AdminHome />
-                </Route>
-                 <Route path='/'>
-                    <Home />
-                </Route>  */}
-            
-
-        
-            <Register />
-            <Login />
-            <Posts />
-
-            <AdminHome />
-            {/* Carousel */}
-            
+                <Switch>
+                <Route path="/Login"><Login /><Register /></Route>
+                <Route path="/AdminHome"><AdminHome /></Route>
+                <Route path='/'><Posts /></Route>  
+                </Switch>
 
 
-            {/* Event Cards */}
-
-            <GridList cellHeight={200} spacing={1}></GridList>
-            <GridListTile cols={5}>Why is it not showing test</GridListTile>
-
-            {/* Categories */}
-        <Grid container spacing={5}>
-
-            <Grid item xs={2}>
-                <Paper> Category 1 </Paper>
-            </Grid>
-            <Grid item xs={2}>
-                <Paper>Category 2 </Paper>
-            </Grid>
-            <Grid item xs={2}>
-                <Paper>Category 3</Paper>
-            </Grid>
-            <Grid item xs={2}>
-                <Paper>Category 4</Paper>
-            </Grid>
-            <Grid item xs={2}>
-                <Paper>Category 5</Paper>
-            </Grid>
-        
-        </Grid>
 
             {/* Footer */}
 
-
         </div>
-        </Router>
+        
 
     )}
 }

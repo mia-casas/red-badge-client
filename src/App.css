@@ -1,5 +1,6 @@
 body{
   font-family: 'Montserrat', sans-serif;
+  margin: 3em;
 }
 
 input{
@@ -11,16 +12,9 @@ input{
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+/* .title{
+  /* font-family: 'Marmelad, sans-serif'; */
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
 .App-header {
   background-color: #282c34;
@@ -33,15 +27,3 @@ input{
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}

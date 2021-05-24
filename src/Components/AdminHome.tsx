@@ -4,6 +4,7 @@ import {Form} from 'reactstrap'
 import {InputProps} from '@material-ui/core/Input/Input'
 import {IPost} from './Interfaces'
 import { BaseSyntheticEvent } from 'react';
+import Featured from './Featured'
 
 
 export type MoreProps = {
@@ -41,7 +42,7 @@ class AdminHome extends React.Component<InputProps, IPost>{
             }),
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0NWRmZmIwLTg4ZjktNDk5ZC05NTk1LWNmNWFhYjFmNGY1ZSIsImlhdCI6MTYyMTcwODczNywiZXhwIjoxNjIxNzk1MTM3fQ.hgI_bvEE6FpRWAmElpLKYgvKsAzErAOcAs69oGT-Xuo'
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0NWRmZmIwLTg4ZjktNDk5ZC05NTk1LWNmNWFhYjFmNGY1ZSIsImlhdCI6MTYyMTg2NjEwOCwiZXhwIjoxNjIxOTUyNTA4fQ.n1y2HUPghAJif1809YXBIzccmfaUrzQvAmApFJyqrKc'
             })
         }).then((res) => res.json())
         .then((data) => {
@@ -111,6 +112,10 @@ class AdminHome extends React.Component<InputProps, IPost>{
                         <Button type="submit">Create Post</Button>
                 
                 </Form>
+
+                <div>
+                    {/* <Featured /> */}
+                </div>
             </div>
         )
     }

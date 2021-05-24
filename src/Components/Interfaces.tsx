@@ -46,3 +46,13 @@ export interface IState{
     props: []
 }
 
+// User
+export interface IComment{
+    like: boolean,
+    comment: string
+}
+
+export interface IInfo{
+    postId: string,
+    userId: string
+}
