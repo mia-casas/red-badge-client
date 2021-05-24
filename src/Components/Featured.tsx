@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import {IPost} from './Interfaces'
+import {IPost, IResponse, IComment, IUserProps} from './Interfaces'
 import { render } from '@testing-library/react';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -33,10 +32,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 
-class PostsWithComments extends React.Component<IPost>{
+class PostsWithComments extends React.Component<IUserProps, IResponse & IComment & IPost>{
     constructor(props:any){
         super(props)
         this.state = {
+            posts: [],
             date: '',
             time: '',
             location: '',
@@ -44,13 +44,26 @@ class PostsWithComments extends React.Component<IPost>{
             content: '',
             category: '',
             imageURL: '',
-            owner: ''
+            owner: '',
+            like: false,
+            comment: ''
         }
     }
 
 
 fetchPosts = () => {
-    fetch(`http://localhost:5005/likes/postinfo/`)
+    fetch(`http://localhost:5005/likes/postinfo/:id`, {
+      method: "GET",
+      headers: new Headers ({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.props.token}`
+      })
+    }).then((response) => console.log(response))
+}
+
+componentDidMount(){
+  this.fetchPosts()
+  console.log(this.props)
 }
 
 render(){
@@ -60,10 +73,6 @@ render(){
         </div>
     )
 }}
-
-
-
-
 
             // <GridList cellHeight={200} spacing={1}></GridList>
             // <GridListTile cols={5}>Why is it not showing test</GridListTile>

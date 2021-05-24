@@ -4,8 +4,12 @@ import {Form} from 'reactstrap'
 import {IUser, IUserProps} from '../Interfaces';
 import { BaseSyntheticEvent } from 'react';
 
-class Register extends React.Component<{}, IUser & IUserProps>{
-    constructor(props: any){
+type AcceptedProps = {
+    newToken: CallableFunction
+}
+
+class Register extends React.Component<AcceptedProps, IUser & IUserProps>{
+    constructor(props: AcceptedProps){
         super(props);
         this.state = {
             firstName: '',
@@ -31,7 +35,7 @@ class Register extends React.Component<{}, IUser & IUserProps>{
                 'Content-Type': 'application/json'
             })
         }).then(response => response.json())
-          .then(data => this.setState({token: data.token}))    
+          .then(data => this.props.newToken(data.token))    
     }
     componentDidUpdate(){
         setTimeout(() => {localStorage.setItem('token', `${this.state.token}`)}, 500)

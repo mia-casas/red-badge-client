@@ -30,16 +30,21 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type isModal = {
-  isModal: boolean
+  isModal: boolean,
+  comment: string
+  
+}
+type IProps = {
+  eventId: string,
+  token: string
 }
 
-class Comment extends React.Component<{}, isModal & IComment>{
+class Comment extends React.Component<IProps, isModal >{
     constructor(props:any){
         super(props);
         this.state = {
         isModal: false,
-        like: false,
-        comment: ''
+        comment: '',
     }}
 
     modalTrue = () => {
@@ -50,15 +55,15 @@ class Comment extends React.Component<{}, isModal & IComment>{
 
 
 createComment = (e: React.BaseSyntheticEvent) => {
+  console.log(this.props)
     fetch(`http://localhost:5005/likes/create`, {
         method: "POST",
         body: JSON.stringify({like:{ 
-            like: this.state.like,
             comment: this.state.comment
         }}),
         headers: new Headers({
             'Content-Type': 'application/json',
-                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0NWRmZmIwLTg4ZjktNDk5ZC05NTk1LWNmNWFhYjFmNGY1ZSIsImlhdCI6MTYyMTgxNTc0MywiZXhwIjoxNjIxOTAyMTQzfQ.juWoARxrRGDZiQ6bLB0yQDfcO5n1cwMzUSpFT9KeZ08'`
+                'Authorization': `Bearer ${this.props.token}`
         })
     }).then((res) => res.json())
     .then((data) => console.log(data))
@@ -71,19 +76,19 @@ componentDidMount = () => {
     })
 }
 
+
+
 handleChange = (e:React.BaseSyntheticEvent) => {
-    console.log(e.target.name, e.target.value)
-    this.setState((prevState) => ({
-        ...prevState, [e.target.name] : e.target.value as Pick<IComment, keyof IComment>
-    }))
-  }
+  console.log(e.target.value)
+  this.setState({comment: e.target.value})
+}
 
 
 
 render(){
     return(
         <div>
-            <Display openModal={this.modalTrue} isOpen={this.state.isModal} create={this.createComment} value={this.state.comment} setState={this.handleChange}/>
+            <Display openModal={this.modalTrue} isOpen={this.state.isModal} create={this.createComment} value={this.state.comment} onChange={(e:React.BaseSyntheticEvent) => this.handleChange(e)}/>
         </div>
     )
 }
@@ -108,11 +113,11 @@ const Display = (props:any) => {
                 <ModalHeader id="simple-modal-title">Let Us Know What You Think</ModalHeader>
                 <ModalBody  id="simple-modal-description">
                   <Form onSubmit={props.create}>
-                <Input type="textarea" placeholder= "Write a comment..." value={props.value} onChange={props.setState} />
+                <Input name="comment" type="text" placeholder= "Write a comment..." value={props.value} onChange={props.onChange} />
                   </Form>
                 </ModalBody>
                 <ModalFooter>
-                <Button type="submit">Post</Button>
+                <Button onClick={props.create} type="submit">Post</Button>
             </ModalFooter>
             </Modal>
     </div>

@@ -44,10 +44,14 @@ const useStyles = makeStyles({
     }
 })
 
+type props = {
+    eventId: '',
+    token: string | null
+}
 
-class Posts extends Component<{}, IResponse &IPost> {
+class Posts extends Component<props, IResponse &IPost> {
     
-    constructor(props:any){
+    constructor(props:props){
         super(props)
         this.state = { 
             posts: [],
@@ -103,20 +107,14 @@ class Posts extends Component<{}, IResponse &IPost> {
         <Grid container spacing={5}>
 
             <Grid item xs={3}>
-                <Button onClick={(e) => this.filterMusic(e)} >Music Events</Button>
-            </Grid>
-            <Grid item xs={3}>
-                <Button>Sports Events </Button>
-            </Grid>
-            <Grid item xs={3}>
-                <Button>Most Popular</Button>
+                <Button  >My Events</Button>
             </Grid>
             <Grid item xs={3}>
                 <Button onClick={(e) => this.fetchPosts(e)}>All Posts <br /> </Button>
             </Grid>
         
         </Grid>
-            <Post posts={this.state.posts}></Post>
+            <Post posts={this.state.posts} token={this.props.token}></Post>
             {/* <Comments modalTrue={this.modalTrue} /> */}
         </>
     )
@@ -124,14 +122,14 @@ class Posts extends Component<{}, IResponse &IPost> {
 }
 
 const Post = (props:any) => {
-    console.log(props)
+    // console.log(props)
     const classes= useStyles();
     
     
     return(
       <div>
           {props.posts.map((post: any) => {
-                console.log(post)
+                // console.log(post)
                 return(
                     <div>
                         
@@ -163,7 +161,7 @@ const Post = (props:any) => {
                             <IconButton aria-label="add to favorites" aria-pressed="true">
                             <FavoriteIcon />
                             </IconButton>
-                            <Button size="medium"><Comments /></Button>
+                            <Button size="medium"><Comments eventId={post.id} token={props.token}/></Button>
                             </CardActions>
                         </Card>
 

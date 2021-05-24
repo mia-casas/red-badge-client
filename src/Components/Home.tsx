@@ -21,7 +21,7 @@ class Home extends Component<{}, IMenuState & IUserProps>{
         super(props);
         this.state = {
             anchorEl: null,
-            token: null
+            token: null,
         }
     }
 
@@ -39,15 +39,14 @@ class Home extends Component<{}, IMenuState & IUserProps>{
     newToken = (token:string) => {
         localStorage.setItem('item', token);
         this.setState({token: token})
+        console.log(token)
     }
 
 
     clearToken=() => {
         localStorage.clear();
-        // localStorage.removeItem('token')
-        // localStorage.setItem('token', `${this.state.token}`);
         
-    } //not working??
+    } 
 
     render() {return(
         
@@ -65,16 +64,16 @@ class Home extends Component<{}, IMenuState & IUserProps>{
                 anchorEl={this.state.anchorEl}
                 keepMounted open={Boolean(this.state.anchorEl)} onClose={this.handleClose}>   {/* Menu or Dropdown? */}
                     <MenuItem ><Link to="/Login">Login</Link></MenuItem>
-                    <MenuItem onClick={(e) => this.clearToken}>Logout</MenuItem>
+                    <MenuItem onClick={(e) => this.clearToken()}>Logout</MenuItem>
                 </Menu>    
                 <Link to="/">Home</Link>
                 {/* <Link>My Events</Link> */}
                 <Link to='/AdminHome'>Admin Users</Link>
             </Breadcrumbs>
                 <Switch>
-                <Route path="/Login"><Login /><Register /></Route>
-                <Route path="/AdminHome"><AdminHome /></Route>
-                <Route path='/'><Posts /></Route>  
+                <Route path="/Login"><Login newToken={this.newToken}/><Register newToken={this.newToken}/></Route>
+                <Route path="/AdminHome"><AdminHome token={this.state.token}/></Route>
+                <Route path='/'><Posts eventId={''} token={this.state.token}/></Route>  
                 </Switch>
 
 

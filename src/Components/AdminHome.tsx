@@ -2,17 +2,15 @@ import React from 'react';
 import {Card, Modal, Button, Input, InputLabel, TextField, MenuItem} from '@material-ui/core';
 import {Form} from 'reactstrap'
 import {InputProps} from '@material-ui/core/Input/Input'
-import {IPost} from './Interfaces'
+import {IPost, IUserProps} from './Interfaces'
 import { BaseSyntheticEvent } from 'react';
-import Featured from './Featured'
+import PostsWithComments from './Featured'
 
 
-export type MoreProps = {
-    children: boolean
-}
 
-class AdminHome extends React.Component<InputProps, IPost>{
-    constructor(props:any){
+
+class AdminHome extends React.Component<IUserProps, IPost>{
+    constructor(props: IUserProps){
         super(props)
         this.state= {
             date: '',
@@ -42,11 +40,11 @@ class AdminHome extends React.Component<InputProps, IPost>{
             }),
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0NWRmZmIwLTg4ZjktNDk5ZC05NTk1LWNmNWFhYjFmNGY1ZSIsImlhdCI6MTYyMTg2NjEwOCwiZXhwIjoxNjIxOTUyNTA4fQ.n1y2HUPghAJif1809YXBIzccmfaUrzQvAmApFJyqrKc'
+                'Authorization': `Bearer ${this.props.token}`
             })
         }).then((res) => res.json())
         .then((data) => {
-            console.log(data)
+            console.log(this.props.token)
             })
     }
 
@@ -69,6 +67,7 @@ class AdminHome extends React.Component<InputProps, IPost>{
         }))
     }
     render(){
+        console.log(this.props.token)
         return(
             <div>
                 <Form onSubmit={(e) => this.createPost(e)}>
@@ -114,7 +113,7 @@ class AdminHome extends React.Component<InputProps, IPost>{
                 </Form>
 
                 <div>
-                    {/* <Featured /> */}
+                    <PostsWithComments token={this.props.token}/>
                 </div>
             </div>
         )
