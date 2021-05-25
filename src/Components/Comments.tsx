@@ -76,6 +76,10 @@ componentDidMount = () => {
     })
 }
 
+componentDidUpdate(){
+  
+}
+
 
 
 handleChange = (e:React.BaseSyntheticEvent) => {
@@ -121,6 +125,7 @@ const Display = (props:any) => {
             </ModalFooter>
             </Modal>
     </div>
+        
   )
 }
 
