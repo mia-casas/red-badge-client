@@ -6,6 +6,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Featured from './Featured'
 import Comments from './Comments'
 import DeletePosts from './PostIndex/Delete'
+import UpdatePost from './PostIndex/Update'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import {Grid, GridList, GridListTile} from '@material-ui/core/';
@@ -163,7 +164,9 @@ const Post = (props:any) => {
                             <FavoriteIcon />
                             </IconButton>
                             <Button size="medium"><Comments eventId={post.id} token={props.token}/></Button>
-                            <Button>Update</Button>
+                            <Button>
+                                <UpdatePost title={post.title} eventId={post.id} token={props.token} />
+                                </Button>
                             <Button><DeletePosts eventId={post.id} token={props.token} /> </Button>
                             </CardActions>
                         </Card>

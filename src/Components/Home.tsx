@@ -70,20 +70,17 @@ class Home extends Component<{}, IMenuState & IUserProps>{
                 {/* <Link>My Events</Link> */}
                 <Link to='/AdminHome'>Admin Users</Link>
             </Breadcrumbs>
-                <Switch>
+            <Switch>
                 <Route path="/Login"><Login newToken={this.newToken}/><Register newToken={this.newToken}/></Route>
+                
+                <Route path='/AdminHome'><AdminHome token={this.state.token}/></Route>
                 <Route path='/'><Posts eventId={''} token={this.state.token}/></Route>  
-                {localStorage.item.isAdmin === true ?
-
-                <Route path="/AdminHome"><AdminHome token={this.state.token}/></Route>
-                 :<></>
-                } 
 
                 
                 </Switch>
 
 
-
+                
             {/* Footer */}
 
         </div>
