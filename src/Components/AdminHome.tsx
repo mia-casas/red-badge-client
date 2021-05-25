@@ -113,7 +113,7 @@ class AdminHome extends React.Component<IUserProps, IPost>{
                 </Form>
 
                 <div>
-                    <PostsWithComments token={this.props.token}/>
+                    {/* <PostsWithComments token={this.props.token}/> */}
                 </div>
             </div>
         )

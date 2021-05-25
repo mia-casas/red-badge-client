@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import { BaseSyntheticEvent } from 'react';
 import {IResponse, IPost} from './Interfaces'
-import {Card, CardHeader, CardMedia, CardActions, CardContent, Button, ButtonBase, Typography, IconButton} from '@material-ui/core'
+import {Card, CardHeader, CardMedia, CardActions, CardContent, Button, ButtonBase, Typography, IconButton, Menu, MenuItem} from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Featured from './Featured'
 import Comments from './Comments'
+import DeletePosts from './PostIndex/Delete'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import {Grid, GridList, GridListTile} from '@material-ui/core/';
@@ -48,8 +49,11 @@ type props = {
     eventId: '',
     token: string | null
 }
+interface IMenuState {
+    anchorEl: null | HTMLElement
+}
 
-class Posts extends Component<props, IResponse &IPost> {
+class Posts extends Component<props, IMenuState & IResponse &IPost> {
     
     constructor(props:props){
         super(props)
@@ -62,13 +66,14 @@ class Posts extends Component<props, IResponse &IPost> {
             content: '',
             category: '',
             imageURL: '',
-            owner: ''
+            owner: '',
+            anchorEl: null,
         }
     }
 
     
 
-    fetchPosts = (e:React.BaseSyntheticEvent) => {    
+    fetchPosts = () => {    
         fetch(`http://localhost:5005/post/all`, {
             method: 'GET',
             headers: new Headers ({
@@ -85,17 +90,9 @@ class Posts extends Component<props, IResponse &IPost> {
     }
 
     componentDidMount(){
-        
-        // this.fetchPosts(e),
+        this.fetchPosts()
     }
     
-
-    filterMusic=(e:React.BaseSyntheticEvent)=>{
-        if(this.state.category === 'music'){
-            return this.state.posts
-        }
-    }
-
 
     render(){
         console.log(this.state.posts)
@@ -104,17 +101,14 @@ class Posts extends Component<props, IResponse &IPost> {
         {/* Filter Categories */}
 
 
-        <Grid container spacing={5}>
+        {/* <Grid container spacing={5}>
 
-            <Grid item xs={3}>
-                <Button  >My Events</Button>
-            </Grid>
             <Grid item xs={3}>
                 <Button onClick={(e) => this.fetchPosts(e)}>All Posts <br /> </Button>
             </Grid>
         
-        </Grid>
-            <Post posts={this.state.posts} token={this.props.token}></Post>
+        </Grid> */}
+            <Post posts={this.state.posts} token={this.props.token} ></Post>
             {/* <Comments modalTrue={this.modalTrue} /> */}
         </>
     )
@@ -122,7 +116,7 @@ class Posts extends Component<props, IResponse &IPost> {
 }
 
 const Post = (props:any) => {
-    // console.log(props)
+    console.log(props)
     const classes= useStyles();
     
     
@@ -136,13 +130,20 @@ const Post = (props:any) => {
                         <Card className={classes.root}>
                             <CardHeader
                                 action={
-                                <IconButton aria-label="settings">
+                                
+                                <IconButton aria-label="settings" aria-controls="simple-menu"
+                                aria-haspopup="true"
+                                onClick={props.handleClick} >
                                     <MoreVertIcon />
                                 </IconButton>
+                                
                                 }
                                 title={post.title}
                                 subheader={post.date}
                                 className={classes.borderTop}
+
+
+                              
                             />
                             <CardMedia 
                                 className={classes.media}
@@ -162,6 +163,8 @@ const Post = (props:any) => {
                             <FavoriteIcon />
                             </IconButton>
                             <Button size="medium"><Comments eventId={post.id} token={props.token}/></Button>
+                            <Button>Update</Button>
+                            <Button><DeletePosts eventId={post.id} token={props.token} /> </Button>
                             </CardActions>
                         </Card>
 

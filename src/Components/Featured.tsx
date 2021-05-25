@@ -47,6 +47,7 @@ class PostsWithComments extends React.Component<IUserProps, IResponse & IComment
             owner: '',
             like: false,
             comment: ''
+            
         }
     }
 
