@@ -8,7 +8,7 @@ import Register from './Auth/Register'
 import Login from './Auth/Login'
 import Posts from './AllPosts'
 import AdminHome from './AdminHome'
-import Comment from './Comments'
+import ViewComments from './CommentsIndex/View'
 
 // import { AutoRotatingCarousel } from 'material-auto-rotating-carousel';
 // import {Route, MemoryRouter} from 'react-router'
@@ -63,16 +63,16 @@ class Home extends Component<{}, IMenuState & IUserProps>{
                 id="simple-menu"
                 anchorEl={this.state.anchorEl}
                 keepMounted open={Boolean(this.state.anchorEl)} onClose={this.handleClose}>   {/* Menu or Dropdown? */}
-                    <MenuItem ><Link to="/Login">Login</Link></MenuItem>
+                    <MenuItem ><Link color="inherit" to="/Login">Login</Link></MenuItem>
                     <MenuItem onClick={(e) => this.clearToken()}>Logout</MenuItem>
                 </Menu>    
-                <Link to="/">Home</Link>
-                {/* <Link>My Events</Link> */}
-                <Link to='/AdminHome'>Admin Users</Link>
+                <Link color="inherit" to="/">Home</Link>
+                <Link color="inherit" to="/allcomments">User Comments</Link>
+                <Link color="inherit" to='/AdminHome'>Admin Users</Link>
             </Breadcrumbs>
             <Switch>
                 <Route path="/Login"><Login newToken={this.newToken}/><Register newToken={this.newToken}/></Route>
-                
+                <Route path='/allcomments'><ViewComments token={this.state.token} commentId={''}/></Route>
                 <Route path='/AdminHome'><AdminHome token={this.state.token}/></Route>
                 <Route path='/'><Posts eventId={''} token={this.state.token}/></Route>  
 

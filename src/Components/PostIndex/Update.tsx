@@ -72,8 +72,8 @@ class UpdatePost extends React.Component<IProps, IPostEdit & UpdateIndex>{
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${this.props.token}`
             })
-        }) .then((response) => console.log(response.json))
-        .then((data) => console.log(this.props))
+        }) .then((response) => response.json())
+        .then((data) => console.log(data))
     }
 
 
@@ -100,7 +100,7 @@ class UpdatePost extends React.Component<IProps, IPostEdit & UpdateIndex>{
                     <Input type="text" required={true} name="ImageURL" onChange={(e)=>{this.setState({editImageURL: e.target.value})}}></Input>
                     </ModalBody>
                     <ModalFooter>
-                    <Button color="success" type="submit" >Finish Changes</Button>
+                    <Button type="submit" >Finish Changes</Button>
                     </ModalFooter>
                     </Form>
                 </Modal>
