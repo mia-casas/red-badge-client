@@ -1,7 +1,28 @@
-# Getting Started with Create React App
-
+# Get Started:
+** The following project was created with React Legacy and TypeScript.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Project Name: Discover
+
+## Description:
+This app is a platform for locals and travelers to engage in unique community experiences. Users can browse beautiful destinations, local events, and exciting activities to inspire getaways or weekend outings. Venues and businesses can post their event and activity details to attract more clients and customers. (US Based only)
+
+## Contents:
+The app consists of three main sections:
+1. A Home Page that displays all the posts created by Admin Users
+2. A feed page that displays users' comments regarding upcoming events
+3. An Admin dashboard where admins create posts for upcoming events and activites
+
+## Installation:
+Technologies used for this project include React, ReactStrap, ReactRouter, and MaterialUI. This project can be cloned from GitHub.
+
+## Usage:
+This app can be used as a starting point to construct an improved version of the ideas built out here.
+
+## Credits:
+Mia Casas of Northwest Indiana, student at Eleven Fifty Academy.
+
+******************** The following is additional information provide from React ******************** 
 ## Available Scripts
 
 In the project directory, you can run:
