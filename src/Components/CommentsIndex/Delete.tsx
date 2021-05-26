@@ -5,6 +5,7 @@ import {Button} from '@material-ui/core'
 type IProps = {
     token: string | null
     commentId: ''
+
 }
 
 

@@ -12,7 +12,6 @@ function getModalStyle() {
   return {
     top: `${top}%`,
     left: `${left}%`,
-    // transform: `translate(${top}%, -${left}%)`,
   };
 }
 
@@ -31,12 +30,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type isModal = {
   isModal: boolean,
-  comment: string
+  comment: string,
+  eventId: any,
   
 }
 type IProps = {
-  eventId: string,
-  token: string
+  token: string,
+  eventId: string
 }
 
 class Comment extends React.Component<IProps, isModal >{
@@ -45,6 +45,7 @@ class Comment extends React.Component<IProps, isModal >{
         this.state = {
         isModal: false,
         comment: '',
+        eventId: ''
     }}
 
     modalTrue = () => {
@@ -59,7 +60,8 @@ createComment = (e: React.BaseSyntheticEvent) => {
     fetch(`http://localhost:5005/likes/create`, {
         method: "POST",
         body: JSON.stringify({like:{ 
-            comment: this.state.comment
+            comment: this.state.comment,
+            postId: this.props.eventId,
         }}),
         headers: new Headers({
             'Content-Type': 'application/json',

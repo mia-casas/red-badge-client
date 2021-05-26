@@ -1,12 +1,8 @@
 import React from 'react';
 import {IUserProps} from '../Interfaces';
-import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Form} from 'reactstrap'
-
+import { Input, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
+import {FormControl, Button} from '@material-ui/core'
 //props to pull (token, eventId)
-
-type UpdateIndex = {
-    isUpdateActive: boolean,
-}
 
 type IProps = {
     token: ''
@@ -22,10 +18,11 @@ interface IPostEdit {
     editContent: string,
     editCategory: string,
     editImageURL: string,
+    isOpen: boolean
 
 }
 
-class UpdatePost extends React.Component<IProps, IPostEdit & UpdateIndex>{
+class UpdatePost extends React.Component<IProps, IPostEdit>{
     constructor(props:any){
         super(props);
         this.state = {
@@ -36,7 +33,7 @@ class UpdatePost extends React.Component<IProps, IPostEdit & UpdateIndex>{
             editContent: '',
             editCategory: '',
             editImageURL: '',
-            isUpdateActive: false,
+            isOpen: false,
 
         }
     }
@@ -76,33 +73,36 @@ class UpdatePost extends React.Component<IProps, IPostEdit & UpdateIndex>{
         .then((data) => console.log(data))
     }
 
-
+    toggle = (e:React.BaseSyntheticEvent) => {
+        this.setState({isOpen: !this.state.isOpen})
+    }
     render(){
         return(
             <div>
-                <Modal isOpen={true}>
-                    <Form onSubmit={(e) => this.completeUpdate(e)}>
+                <Button onClick={(e) => this.toggle(e)}>Update</Button>
+                <Modal isOpen={this.state.isOpen}>
+                    <FormControl onSubmit={(e) => this.completeUpdate(e)}>
                     <ModalHeader>Edit Post: {this.props.title}</ModalHeader>
                     <ModalBody>
-                    <Input type="date" required={true} name="Date" onChange={(e)=>{this.setState({editDate: e.target.value})}}></Input> 
-                    <Input type="time" required={true} name="Time" onChange={(e)=>{this.setState({editTime: e.target.value})}}></Input>
-                    <Input type="text" required={true} name="Location" onChange={(e)=>{this.setState({editLocation: e.target.value})}}></Input>
-                    <Input type="text" required={true} name="Title" onChange={(e)=>{this.setState({editTitle: e.target.value})}}></Input>
-                    <Input type="text" required={true} name="Content" onChange={(e)=>{this.setState({editContent: e.target.value})}}></Input>
-                    <Input type="select" required={true} name="Category" onChange={(e)=>{this.setState({editCategory: e.target.value})}}>
-                        <option>Select One</option>
+                    <div></div><Input type="date" required={true} name="Date" onChange={(e)=>{this.setState({editDate: e.target.value})}}></Input> 
+                    <div></div><Input type="time" required={true} name="Time" onChange={(e)=>{this.setState({editTime: e.target.value})}}></Input>
+                    <div></div><Input type="text" required={true} name="Location" placeholder="Location" onChange={(e)=>{this.setState({editLocation: e.target.value})}}></Input>
+                    <div></div><Input type="text" required={true} name="Title" placeholder="Title" onChange={(e)=>{this.setState({editTitle: e.target.value})}}></Input>
+                    <div></div><Input type="text" required={true} name="Content" placeholder="Description" onChange={(e)=>{this.setState({editContent: e.target.value})}}></Input>
+                    <div></div><Input type="select" required={true} name="Category" onChange={(e)=>{this.setState({editCategory: e.target.value})}}>
+                        <option>Select A Category</option>
                         <option value='Music'>Music</option>
                         <option value='Sports'>Sports</option>
                         <option value='Food'>Food&Drink</option>
                         <option value='Arts and Theater'>Arts&Theater</option>
                         <option value="Family Fun">Family Fun</option>
                     </Input>
-                    <Input type="text" required={true} name="ImageURL" onChange={(e)=>{this.setState({editImageURL: e.target.value})}}></Input>
+                    <div></div><Input type="text" required={true} name="ImageURL" placeholder="Image URL" onChange={(e)=>{this.setState({editImageURL: e.target.value})}}></Input>
                     </ModalBody>
                     <ModalFooter>
                     <Button type="submit" >Finish Changes</Button>
                     </ModalFooter>
-                    </Form>
+                    </FormControl>
                 </Modal>
             </div>
         )

@@ -10,12 +10,11 @@ import Posts from './AllPosts'
 import AdminHome from './AdminHome'
 import ViewComments from './CommentsIndex/View'
 
-// import { AutoRotatingCarousel } from 'material-auto-rotating-carousel';
-// import {Route, MemoryRouter} from 'react-router'
-
 interface IMenuState {
     anchorEl: null | HTMLElement
 }
+
+
 class Home extends Component<{}, IMenuState & IUserProps>{
     constructor(props:any){
         super(props);
@@ -68,18 +67,19 @@ class Home extends Component<{}, IMenuState & IUserProps>{
                 </Menu>    
                 <Link color="inherit" to="/">Home</Link>
                 <Link color="inherit" to="/allcomments">User Comments</Link>
-                <Link color="inherit" to='/AdminHome'>Admin Users</Link>
+                <Link color="inherit" to='/AdminHome'>Admin Users</Link> 
             </Breadcrumbs>
             <Switch>
                 <Route path="/Login"><Login newToken={this.newToken}/><Register newToken={this.newToken}/></Route>
                 <Route path='/allcomments'><ViewComments token={this.state.token} commentId={''}/></Route>
+
                 <Route path='/AdminHome'><AdminHome token={this.state.token}/></Route>
+
+
                 <Route path='/'><Posts eventId={''} token={this.state.token}/></Route>  
 
                 
                 </Switch>
-
-
                 
             {/* Footer */}
 

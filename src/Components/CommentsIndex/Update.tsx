@@ -9,7 +9,7 @@ type props = {
 
 interface ICommentEdit {
     editComment: string,
-    isModal: boolean
+    isOpen: boolean
 }
 
 
@@ -18,7 +18,7 @@ class UpdateComment extends React.Component<props, ICommentEdit>{
         super(props);
         this.state = {
             editComment: '',
-            isModal: false
+            isOpen: false
         }
     }
 
@@ -28,7 +28,7 @@ class UpdateComment extends React.Component<props, ICommentEdit>{
             method: 'PUT',
             body: JSON.stringify({
                 comment: this.state.editComment
-            }),
+           }),
             headers: new Headers({
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${this.props.token}`
@@ -36,16 +36,17 @@ class UpdateComment extends React.Component<props, ICommentEdit>{
         }). then((response) => response.json())
             .then((data) => console.log(data))
     }
-
-// toggle = () => this.setState{(isModal: !modal)}
-
-
-
+  
+toggle = (e:React.BaseSyntheticEvent) => {
+    this.setState({isOpen: !this.state.isOpen})
+    console.log(`${this.state.editComment}hello`)
+}
+ 
     render(){
         return(
             <div>
-                <Button>Update</Button>
-                <Modal isOpen={true}>
+                <Button onClick={(e) => this.toggle(e)} >Update</Button>
+                <Modal isOpen={this.state.isOpen}>
                     <Form onSubmit={(e) => this.updateComment(e)}>
                         <ModalHeader>Rate and Review</ModalHeader>
                         <ModalBody>
